@@ -7,21 +7,124 @@
       href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
       rel="stylesheet"
     />
-    <!-- Google Tag Manager -->
-    <script>
-      (function (w, d, s, l, i) {
-        w[l] = w[l] || [];
-        w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
-        var f = d.getElementsByTagName(s)[0],
-          j = d.createElement(s),
-          dl = l != "dataLayer" ? "&l=" + l : "";
-        j.async = true;
-        j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
-        f.parentNode.insertBefore(j, f);
-      })(window, document, "script", "dataLayer", "GTM-NXVB46BN");
-    </script>
-    <!-- End Google Tag Manager -->
     <title>Checkout</title>
+     <script>
+        // Khởi tạo dataLayer
+      window.dataLayer = window.dataLayer || [];
+      //Update Order Information
+      function updateOrderSummary() {
+        //Get the value of product price and quantity
+        const productPriceStr = document.querySelector('#product_price').textContent;
+        const quantity = document.querySelector('#quantity').value;
+        //Convert them into number type
+        const productPrice = Number(productPriceStr.replace('$', ''));
+        const quantityNum = Number(quantity);
+        //Calculate other metrics
+        const subtotal = productPrice * quantityNum;
+        const shipping = subtotal * 0.02;
+        const taxes = subtotal * 0.08;
+        const total = subtotal + shipping + taxes;
+        //Return the information to html elements
+        document.querySelector('#subtotal').textContent = `$${subtotal.toFixed(2)}`;
+        document.querySelector('#shipping').textContent = `$${shipping.toFixed(2)}`;
+        document.querySelector('#taxes').textContent = `$${taxes.toFixed(2)}`;
+        document.querySelector('#total').textContent = `$${total.toFixed(2)}`;
+      }
+
+      document.addEventListener('DOMContentLoaded', function() {
+    // Tracking Page View
+    window.dataLayer.push({
+      'event': 'pageView',
+      'pageTitle': document.title,
+      'pageUrl': window.location.href
+    });
+    // Delivery Method Selection
+    document.querySelectorAll('.delivery-method').forEach(function(input) {
+        input.addEventListener('change', function() {
+          window.dataLayer.push({
+            'event': 'deliveryMethodSelect',
+            'deliveryMethod': input.value
+          });
+        });
+      });
+    // Payment Method Selection
+      document.querySelectorAll('.payment-method').forEach(function(input) {
+        input.addEventListener('change', function() {
+          window.dataLayer.push({
+            'event': 'paymentMethodSelect',
+            'paymentMethod': input.id
+          });
+        });
+      });
+
+     //Update Order detail after change quantity
+      document.querySelector('#quantity').addEventListener('change', updateOrderSummary);
+      updateOrderSummary();
+
+      document.querySelector('.confirm_order').addEventListener('click', function(e) {
+  // e.preventDefault();
+
+  // Thu thập dữ liệu từ form và order summary
+  const orderData = {
+    productName: document.querySelector('#product_name').textContent,
+    productPrice: document.querySelector('#product_price').textContent,
+    quantity: document.querySelector('#quantity').value,
+    subtotal: document.querySelector('#subtotal').textContent,
+    shipping: document.querySelector('#shipping').textContent,
+    taxes: document.querySelector('#taxes').textContent,
+    total: document.querySelector('#total').textContent,
+    color: document.querySelector('.color').textContent,
+    size: document.querySelector('.size').textContent,
+    email: document.querySelector('#email-address').value,
+    firstName: document.querySelector('#first-name').value,
+    lastName: document.querySelector('#last-name').value,
+    address: document.querySelector('#address').value,
+    city: document.querySelector('#city').value,
+    country: document.querySelector('#country').value,
+    region: document.querySelector('#region').value,
+    postalCode: document.querySelector('#postal-code').value,
+    phone: document.querySelector('#phone').value,
+    deliveryMethod: document.querySelector('input[name="delivery-method"]:checked')?.value || 'Standard',
+    paymentMethod: document.querySelector('input[name="payment-type"]:checked')?.id || 'credit-card'
+  };
+
+  // Lưu vào SessionStorage
+  sessionStorage.setItem('orderData', JSON.stringify(orderData));
+
+  // Đẩy sự kiện begin_checkout vào dataLayer (chuẩn GA4)
+  window.dataLayer.push({
+    event: 'begin_checkout',
+    ecommerce: {
+      currency: "USD",
+      value: Number(orderData.total.replace('$', '')), // Chuyển sang số để GA4 nhận diện
+      items: [{
+        item_name: orderData.productName,
+        price: Number(orderData.productPrice.replace('$', '')),
+        quantity: Number(orderData.quantity),
+        subtotal: orderData.subtotal, // Giữ nguyên định dạng chuỗi nếu cần
+        shipping: orderData.shipping,
+        taxes: orderData.taxes,
+        item_variant: `${orderData.color} - ${orderData.size}` // Kết hợp color và size thành variant
+      }]
+    }
+  });
+});
+   })
+</script>
+<!-- Google Tag Manager -->
+<script>
+  (function (w, d, s, l, i) {
+    w[l] = w[l] || [];
+    w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+    var f = d.getElementsByTagName(s)[0],
+      j = d.createElement(s),
+      dl = l != "dataLayer" ? "&l=" + l : "";
+    j.async = true;
+    j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+    f.parentNode.insertBefore(j, f);
+  })(window, document, "script", "dataLayer", "GTM-NXVB46BN");
+</script>
+<!-- End Google Tag Manager -->
   </head>
   <body>
     <div class="bg-gray-50">
@@ -257,7 +360,8 @@
                       type="radio"
                       name="delivery-method"
                       value="Standard"
-                      class="sr-only"
+                      class="sr-only delivery-method"
+
                     />
                     <span class="flex flex-1">
                       <span class="flex flex-col">
@@ -308,7 +412,8 @@
                       type="radio"
                       name="delivery-method"
                       value="Express"
-                      class="sr-only"
+                      class="sr-only delivery-method"
+
                     />
                     <span class="flex flex-1">
                       <span class="flex flex-col">
@@ -365,7 +470,8 @@
                       name="payment-type"
                       type="radio"
                       checked
-                      class="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                      class="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500 payment-method"
+
                     />
                     <label
                       for="credit-card"
@@ -378,7 +484,8 @@
                       id="paypal"
                       name="payment-type"
                       type="radio"
-                      class="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                      class="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500 payment-method"
+
                     />
                     <label
                       for="paypal"
@@ -391,7 +498,8 @@
                       id="etransfer"
                       name="payment-type"
                       type="radio"
-                      class="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                      class="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500 payment-method"
+
                     />
                     <label
                       for="etransfer"
@@ -497,13 +605,17 @@
                       <div class="min-w-0 flex-1">
                         <h4 class="text-sm">
                           <a
+                            id="product_name"
+
                             href="#"
                             class="font-medium text-gray-700 hover:text-gray-800"
                             >Basic Tee</a
                           >
                         </h4>
-                        <p class="mt-1 text-sm text-gray-500">Black</p>
-                        <p class="mt-1 text-sm text-gray-500">Large</p>
+
+                        <p class="color mt-1 text-sm text-gray-500">Black</p>
+                        <p class="size mt-1 text-sm text-gray-500">Large</p>
+
                       </div>
 
                       <div class="ml-4 flow-root flex-shrink-0">
@@ -529,7 +641,9 @@
                     </div>
 
                     <div class="flex flex-1 items-end justify-between pt-2">
-                      <p class="mt-1 text-sm font-medium text-gray-900">
+
+                      <p id="product_price" class="mt-1 text-sm font-medium text-gray-900">
+
                         $35.00
                       </p>
 
@@ -559,28 +673,34 @@
               <dl class="space-y-6 border-t border-gray-200 px-4 py-6 sm:px-6">
                 <div class="flex items-center justify-between">
                   <dt class="text-sm">Subtotal</dt>
-                  <dd class="text-sm font-medium text-gray-900">$64.00</dd>
+
+                  <dd id="subtotal" class="text-sm font-medium text-gray-900">$64.00</dd>
                 </div>
                 <div class="flex items-center justify-between">
                   <dt class="text-sm">Shipping</dt>
-                  <dd class="text-sm font-medium text-gray-900">$5.00</dd>
+                  <dd id="shipping" class="text-sm font-medium text-gray-900">$5.00</dd>
                 </div>
                 <div class="flex items-center justify-between">
                   <dt class="text-sm">Taxes</dt>
-                  <dd class="text-sm font-medium text-gray-900">$5.52</dd>
+                  <dd id="taxes" class="text-sm font-medium text-gray-900">$5.52</dd>
+
                 </div>
                 <div
                   class="flex items-center justify-between border-t border-gray-200 pt-6"
                 >
                   <dt class="text-base font-medium">Total</dt>
-                  <dd class="text-base font-medium text-gray-900">$75.52</dd>
+
+                  <dd id="total" class="text-base font-medium text-gray-900">$75.52</dd>
+
                 </div>
               </dl>
 
               <div class="border-t border-gray-200 px-4 py-6 sm:px-6">
                 <a
                   href="purchase.html"
-                  class="w-full rounded-md border border-transparent bg-indigo-600 px-4 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50"
+
+                  class="confirm_order w-full rounded-md border border-transparent bg-indigo-600 px-4 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50"
+
                 >
                   Confirm order
                 </a>
