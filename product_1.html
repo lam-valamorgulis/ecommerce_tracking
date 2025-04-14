@@ -2,27 +2,36 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <meta name="robots" content="index, follow" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="googlebot"
+      content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
+    />
     <link
       href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
       rel="stylesheet"
     />
 
-   
     <title>Product 1</title>
 
- <!-- Google Tag Manager -->
- <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-  })(window,document,'script','dataLayer','GTM-NXVB46BN');</script>
-  <!-- End Google Tag Manager -->
-
-
+    <!-- Google Tag Manager -->
+    <script>
+      (function (w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
+        var f = d.getElementsByTagName(s)[0],
+          j = d.createElement(s),
+          dl = l != "dataLayer" ? "&l=" + l : "";
+        j.async = true;
+        j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+        f.parentNode.insertBefore(j, f);
+      })(window, document, "script", "dataLayer", "GTM-NXVB46BN");
+    </script>
+    <!-- End Google Tag Manager -->
   </head>
-  <body>    
-     <div class="pb-16 pt-6 sm:pb-24">
+  <body>
+    <div class="pb-16 pt-6 sm:pb-24">
       <!-- Breadcrumb -->
       <nav
         aria-label="Breadcrumb"
@@ -69,12 +78,16 @@
         <div class="lg:grid lg:auto-rows-min lg:grid-cols-12 lg:gap-x-8">
           <div class="lg:col-span-5 lg:col-start-8">
             <div class="flex justify-between">
-              <h1 id= 'product_name' class="text-xl font-medium text-gray-900">Basic Tee</h1>
-              <p id= 'product_price' class="text-xl font-medium text-gray-900">$35</p>
+              <h1 id="product_name" class="text-xl font-medium text-gray-900">
+                Basic Tee
+              </h1>
+              <p id="product_price" class="text-xl font-medium text-gray-900">
+                $35
+              </p>
             </div>
             <!-- Reviews -->
             <div class="mt-4 flex items-center">
-              <p id='product_rate' class="text-sm text-gray-700">3.9</p>
+              <p id="product_rate" class="text-sm text-gray-700">3.9</p>
               <div class="ml-1 flex items-center">
                 <!-- Stars (4 filled, 1 empty) -->
                 <svg
@@ -173,19 +186,17 @@
                         name="color-choice"
                         value="Black"
                         class="sr-only color"
-                       
                       />
                       <span
                         class="block h-8 w-8 rounded-full border border-black bg-gray-900"
                       ></span>
                     </label>
                     <label class="cursor-pointer">
-                      <input 
+                      <input
                         type="radio"
                         name="color-choice"
                         value="Heather Grey"
                         class="sr-only color"
-                    
                       />
                       <span
                         class="block h-8 w-8 rounded-full border border-black bg-gray-400"
@@ -207,27 +218,27 @@
                 </div>
                 <fieldset class="mt-2">
                   <div class="grid grid-cols-3 gap-3 sm:grid-cols-6">
-                    <label 
+                    <label
                       class="size cursor-pointer border rounded-md px-3 py-3 text-sm font-medium uppercase"
                       >XXS</label
                     >
-                    <label 
+                    <label
                       class="size cursor-pointer border rounded-md px-3 py-3 text-sm font-medium uppercase"
                       >XS</label
                     >
-                    <label 
+                    <label
                       class="size cursor-pointer border rounded-md px-3 py-3 text-sm font-medium uppercase"
                       >S</label
                     >
-                    <label 
+                    <label
                       class="size cursor-pointer border rounded-md px-3 py-3 text-sm font-medium uppercase"
                       >M</label
                     >
-                    <label 
+                    <label
                       class="size cursor-pointer border rounded-md px-3 py-3 text-sm font-medium uppercase"
                       >L</label
                     >
-                    <label 
+                    <label
                       class="size cursor-not-allowed opacity-25 border rounded-md px-3 py-3 text-sm font-medium uppercase"
                       >XL</label
                     >
@@ -235,13 +246,13 @@
                 </fieldset>
               </div>
 
-             <a id="btn"
-              href="checkout.html"
-              class="mt-8 block w-full rounded-md bg-indigo-600 px-8 py-3 text-center text-base font-medium text-white hover:bg-indigo-700"
-            >
-              Add to cart
-            </a>
-
+              <a
+                id="btn"
+                href="checkout.html"
+                class="mt-8 block w-full rounded-md bg-indigo-600 px-8 py-3 text-center text-base font-medium text-white hover:bg-indigo-700"
+              >
+                Add to cart
+              </a>
             </form>
 
             <!-- Description -->
@@ -269,14 +280,32 @@
 
             <!-- Policies -->
             <section class="mt-10">
-              <dl class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
-                <button id="delivery" class="border rounded-lg bg-gray-50 p-6 text-center hover:bg-gray-100 focus:outline-none" data-action="international-delivery">
-                  <dt class="text-sm font-medium text-gray-900">International delivery</dt>
-                  <dd class="mt-1 text-sm text-gray-500">Get your order in 2 years</dd>
+              <dl
+                class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2"
+              >
+                <button
+                  id="delivery"
+                  class="border rounded-lg bg-gray-50 p-6 text-center hover:bg-gray-100 focus:outline-none"
+                  data-action="international-delivery"
+                >
+                  <dt class="text-sm font-medium text-gray-900">
+                    International delivery
+                  </dt>
+                  <dd class="mt-1 text-sm text-gray-500">
+                    Get your order in 2 years
+                  </dd>
                 </button>
-                <button id="loyalty"  class="border rounded-lg bg-gray-50 p-6 text-center hover:bg-gray-100 focus:outline-none" data-action="loyalty-rewards">
-                  <dt class="text-sm font-medium text-gray-900">Loyalty rewards</dt>
-                  <dd class="mt-1 text-sm text-gray-500">Don't look at other tees</dd>
+                <button
+                  id="loyalty"
+                  class="border rounded-lg bg-gray-50 p-6 text-center hover:bg-gray-100 focus:outline-none"
+                  data-action="loyalty-rewards"
+                >
+                  <dt class="text-sm font-medium text-gray-900">
+                    Loyalty rewards
+                  </dt>
+                  <dd class="mt-1 text-sm text-gray-500">
+                    Don't look at other tees
+                  </dd>
                 </button>
               </dl>
             </section>
@@ -284,98 +313,107 @@
         </div>
       </div>
     </div>
-    
+
     <script>
       // Khởi tạo dataLayer
       window.dataLayer = window.dataLayer || [];
-      document.addEventListener('DOMContentLoaded', function() {
-        dataLayer.push({ ecommerce: null });  // Clear the previous ecommerce object.
+      document.addEventListener("DOMContentLoaded", function () {
+        dataLayer.push({ ecommerce: null }); // Clear the previous ecommerce object.
         dataLayer.push({
           event: "view_item",
-          'pageTitle': document.title,
-          'pageUrl': window.location.href,
+          pageTitle: document.title,
+          pageUrl: window.location.href,
           ecommerce: {
             currency: "USD",
             value: 30.03,
             items: [
-            {
-              item_id: "SKU_12345",
-              item_name: "Stan and Friends Tee",
-              affiliation: "Google Merchandise Store",
-              coupon: "SUMMER_FUN",
-              discount: 2.22,
-              index: 0,
-              item_brand: "Google",
-              item_category: "Apparel",
-              item_category2: "Adult",
-              item_category3: "Shirts",
-              item_category4: "Crew",
-              item_category5: "Short sleeve",
-              item_list_id: "related_products",
-              item_list_name: "Related Products",
-              item_variant: "green",
-              location_id: "ChIJIQBpAG2ahYAR_6128GcTUEo",
-              price: 10.01,
-              quantity: 3
-            }
-            ]
-          }
+              {
+                item_id: "SKU_12345",
+                item_name: "Stan and Friends Tee",
+                affiliation: "Google Merchandise Store",
+                coupon: "SUMMER_FUN",
+                discount: 2.22,
+                index: 0,
+                item_brand: "Google",
+                item_category: "Apparel",
+                item_category2: "Adult",
+                item_category3: "Shirts",
+                item_category4: "Crew",
+                item_category5: "Short sleeve",
+                item_list_id: "related_products",
+                item_list_name: "Related Products",
+                item_variant: "green",
+                location_id: "ChIJIQBpAG2ahYAR_6128GcTUEo",
+                price: 10.01,
+                quantity: 3,
+              },
+            ],
+          },
         });
-      // Tracking nút Add to Cart
-      document.querySelector('#btn').addEventListener('click', function(e) {
-        // e.preventDefault()
+        // Tracking nút Add to Cart
+        document.querySelector("#btn").addEventListener("click", function (e) {
+          // e.preventDefault()
           window.dataLayer.push({ ecommerce: null });
           window.dataLayer.push({
-            event: 'add_To_Cart',
+            event: "add_To_Cart",
             ecommerce: {
-            currency: "USD",
-            value: document.querySelector('#product_price').textContent.replace('$', ''),
-            items: [
-            {
-              item_rate: document.querySelector('#product_rate').textContent,
-              item_name: document.querySelector('#product_name').textContent,
-              price: document.querySelector('#product_price').textContent.replace('$', '')
-            }            
-            ]
-          } 
-        });
+              currency: "USD",
+              value: document
+                .querySelector("#product_price")
+                .textContent.replace("$", ""),
+              items: [
+                {
+                  item_rate:
+                    document.querySelector("#product_rate").textContent,
+                  item_name:
+                    document.querySelector("#product_name").textContent,
+                  price: document
+                    .querySelector("#product_price")
+                    .textContent.replace("$", ""),
+                },
+              ],
+            },
+          });
         });
         // Tracking nút Delivery
-    document.getElementById('delivery').addEventListener('click', function() {
-      window.dataLayer.push({
-        'event': 'delivery_Click',
-        'buttonAction': 'international-delivery'
-      });
-    });
+        document
+          .getElementById("delivery")
+          .addEventListener("click", function () {
+            window.dataLayer.push({
+              event: "delivery_Click",
+              buttonAction: "international-delivery",
+            });
+          });
 
-    // Tracking nút Loyalty
-    document.getElementById('loyalty').addEventListener('click', function() {
-      window.dataLayer.push({
-        'event': 'loyalty_Click',
-        'buttonAction': 'loyalty-rewards'
+        // Tracking nút Loyalty
+        document
+          .getElementById("loyalty")
+          .addEventListener("click", function () {
+            window.dataLayer.push({
+              event: "loyalty_Click",
+              buttonAction: "loyalty-rewards",
+            });
+          });
+        //tracking color
+        document.querySelectorAll(".color").forEach(function (input) {
+          input.addEventListener("change", function () {
+            console.log("Selected color:", input.value); // Kiểm tra trên console
+            window.dataLayer.push({
+              event: "colorSelect",
+              selectedColor: input.value,
+            });
+          });
+        });
+        // Size selection
+        document.querySelectorAll(".size").forEach(function (label) {
+          label.addEventListener("click", function () {
+            window.dataLayer.push({
+              event: "sizeSelect",
+              selectedSize: label.textContent.trim(),
+            });
+          });
+        });
       });
-    });
-    //tracking color
-    document.querySelectorAll('.color').forEach(function(input) {
-  input.addEventListener('change', function() {
-    console.log('Selected color:', input.value); // Kiểm tra trên console
-    window.dataLayer.push({
-      'event': 'colorSelect',
-      'selectedColor': input.value
-    });
-  });
-});
-// Size selection
-document.querySelectorAll('.size').forEach(function(label) {
-    label.addEventListener('click', function() {
-      window.dataLayer.push({
-        'event': 'sizeSelect',
-        'selectedSize': label.textContent.trim()
-      });
-    });
-  });
-  })
-      </script>
+    </script>
   </body>
-
 </html>
