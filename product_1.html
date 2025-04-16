@@ -296,11 +296,10 @@
           'pageUrl': window.location.href,
           ecommerce: {
             currency: "USD",
-            value: 30.03,
             items: [
             {
               item_id: "SKU_12345",
-              item_name: "Stan and Friends Tee",
+              item_name: document.querySelector('.product-name').textContent,
               affiliation: "Google Merchandise Store",
               coupon: "SUMMER_FUN",
               discount: 2.22,
@@ -315,8 +314,8 @@
               item_list_name: "Related Products",
               item_variant: "green",
               location_id: "ChIJIQBpAG2ahYAR_6128GcTUEo",
-              price: 10.01,
-              quantity: 3
+              price: document.querySelector('.product-price').textContent,
+              quantity: document.querySelector('.product-quantity').textContent
             }
             ]
           }
@@ -326,7 +325,7 @@
         // e.preventDefault()
           window.dataLayer.push({ ecommerce: null });
           window.dataLayer.push({
-            event: 'add_To_Cart',
+            event: 'add_to_cart',
             ecommerce: {
             currency: "USD",
             value: document.querySelector('#product_price').textContent.replace('$', ''),
