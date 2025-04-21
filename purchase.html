@@ -156,7 +156,7 @@
           pageUrl: window.location.href,
         });
 
-        // Đẩy sự kiện purchase (chuẩn GA4)
+        // Đẩy sự kiện purchase 
         if (orderData) {
           window.dataLayer.push({
             event: "purchase",
@@ -173,7 +173,42 @@
                   shipping: Number(orderData.shipping.replace("$", "")),
                   tax: Number(orderData.taxes.replace("$", "")),
                   subtotal: Number(orderData.subtotal.replace("$", "")),
+                  shipping_name: `${orderData.firstName} ${orderData.lastName}`,
+                  shipping_city: `${orderData.city}, ${orderData.region} ${orderData.postalCode}`,
+                  payment_method: orderData.paymentMethod.replace("-", " ").replace(/\b\w/g, (c) => c.toUpperCase()),
+                  shipping_method: orderData.deliveryMethod,     
+                  item_brand: "Google",
+                  item_category: "Apparel",
+                  item_category2: "Adult",
+                  item_category3: "Shirts",
+                  item_category4: "Crew",
+                  item_category5: "Short sleeve",
+                  item_list_id: "related_products",
+                  item_list_name: "Related Products",
+                  item_variant: "green"               
                 },
+                {
+                  item_id: "SKU_12346",
+                  item_name: "Google Grey Women's Tee",
+                  affiliation: "Google Merchandise Store",
+                  coupon: "SUMMER_FUN",
+                  discount: 3.33,
+                  index: 1,
+                  item_brand: "Google",
+                  item_category: "Apparel",
+                  item_category2: "Adult",
+                  item_category3: "Shirts",
+                  item_category4: "Crew",
+                  item_category5: "Short sleeve",
+                  item_list_id: "related_products",
+                  item_list_name: "Related Products",
+                  item_variant: "gray",
+                  location_id: "ChIJIQBpAG2ahYAR_6128GcTUEo",
+                  price: 21.01,
+                  promotion_id: "P_12345",
+                  promotion_name: "Summer Sale",
+                  quantity: 2
+                }
               ],
             },
           });

@@ -13,125 +13,7 @@
       rel="stylesheet"
     />
     <title>Checkout</title>
-    <script>
-      // Khởi tạo dataLayer
-      window.dataLayer = window.dataLayer || [];
-      //Update Order Information
-      function updateOrderSummary() {
-        //Get the value of product price and quantity
-        const productPriceStr =
-          document.querySelector("#product_price").textContent;
-        const quantity = document.querySelector("#quantity").value;
-        //Convert them into number type
-        const productPrice = Number(productPriceStr.replace("$", ""));
-        const quantityNum = Number(quantity);
-        //Calculate other metrics
-        const subtotal = productPrice * quantityNum;
-        const shipping = subtotal * 0.02;
-        const taxes = subtotal * 0.08;
-        const total = subtotal + shipping + taxes;
-        //Return the information to html elements
-        document.querySelector("#subtotal").textContent = `$${subtotal.toFixed(
-          2
-        )}`;
-        document.querySelector("#shipping").textContent = `$${shipping.toFixed(
-          2
-        )}`;
-        document.querySelector("#taxes").textContent = `$${taxes.toFixed(2)}`;
-        document.querySelector("#total").textContent = `$${total.toFixed(2)}`;
-      }
-
-      document.addEventListener("DOMContentLoaded", function () {
-        // Tracking Page View
-        window.dataLayer.push({
-          event: "pageView",
-          pageTitle: document.title,
-          pageUrl: window.location.href,
-        });
-        // Delivery Method Selection
-        document.querySelectorAll(".delivery-method").forEach(function (input) {
-          input.addEventListener("change", function () {
-            window.dataLayer.push({
-              event: "deliveryMethodSelect",
-              deliveryMethod: input.value,
-            });
-          });
-        });
-        // Payment Method Selection
-        document.querySelectorAll(".payment-method").forEach(function (input) {
-          input.addEventListener("change", function () {
-            window.dataLayer.push({
-              event: "paymentMethodSelect",
-              paymentMethod: input.id,
-            });
-          });
-        });
-
-        //Update Order detail after change quantity
-        document
-          .querySelector("#quantity")
-          .addEventListener("change", updateOrderSummary);
-        updateOrderSummary();
-
-        document
-          .querySelector(".confirm_order")
-          .addEventListener("click", function (e) {
-            // e.preventDefault();
-
-            // Thu thập dữ liệu từ form và order summary
-            const orderData = {
-              productName: document.querySelector("#product_name").textContent,
-              productPrice:
-                document.querySelector("#product_price").textContent,
-              quantity: document.querySelector("#quantity").value,
-              subtotal: document.querySelector("#subtotal").textContent,
-              shipping: document.querySelector("#shipping").textContent,
-              taxes: document.querySelector("#taxes").textContent,
-              total: document.querySelector("#total").textContent,
-              color: document.querySelector(".color").textContent,
-              size: document.querySelector(".size").textContent,
-              email: document.querySelector("#email-address").value,
-              firstName: document.querySelector("#first-name").value,
-              lastName: document.querySelector("#last-name").value,
-              address: document.querySelector("#address").value,
-              city: document.querySelector("#city").value,
-              country: document.querySelector("#country").value,
-              region: document.querySelector("#region").value,
-              postalCode: document.querySelector("#postal-code").value,
-              phone: document.querySelector("#phone").value,
-              deliveryMethod:
-                document.querySelector('input[name="delivery-method"]:checked')
-                  ?.value || "Standard",
-              paymentMethod:
-                document.querySelector('input[name="payment-type"]:checked')
-                  ?.id || "credit-card",
-            };
-
-            // Lưu vào SessionStorage
-            sessionStorage.setItem("orderData", JSON.stringify(orderData));
-
-            // Đẩy sự kiện begin_checkout vào dataLayer (chuẩn GA4)
-            window.dataLayer.push({
-              event: "begin_checkout",
-              ecommerce: {
-                currency: "USD",
-                value: Number(orderData.total.replace("$", "")), // Chuyển sang số để GA4 nhận diện
-                items: [
-                  {
-                    item_name: orderData.productName,
-                    price: Number(orderData.productPrice.replace("$", "")),
-                    quantity: Number(orderData.quantity),
-                    subtotal: orderData.subtotal, // Giữ nguyên định dạng chuỗi nếu cần
-                    shipping: orderData.shipping,
-                    taxes: orderData.taxes,
-                    item_variant: `${orderData.color} - ${orderData.size}`, // Kết hợp color và size thành variant
-                  },
-                ],
-              },
-            });
-          });
-      });
-    </script>
+   
     <!-- Google Tag Manager -->
     <script>
       (function (w, d, s, l, i) {
@@ -729,5 +611,139 @@
         </form>
       </div>
     </div>
+    <script>
+      // Khởi tạo dataLayer
+      window.dataLayer = window.dataLayer || [];
+      //Update Order Information
+      function updateOrderSummary() {
+        //Get the value of product price and quantity
+        const productPriceStr =
+          document.querySelector("#product_price").textContent;
+        const quantity = document.querySelector("#quantity").value;
+        //Convert them into number type
+        const productPrice = Number(productPriceStr.replace("$", ""));
+        const quantityNum = Number(quantity);
+        //Calculate other metrics
+        const subtotal = productPrice * quantityNum;
+        const shipping = subtotal * 0.02;
+        const taxes = subtotal * 0.08;
+        const total = subtotal + shipping + taxes;
+        //Return the information to html elements
+        document.querySelector("#subtotal").textContent = `$${subtotal.toFixed(
+          2
+        )}`;
+        document.querySelector("#shipping").textContent = `$${shipping.toFixed(
+          2
+        )}`;
+        document.querySelector("#taxes").textContent = `$${taxes.toFixed(2)}`;
+        document.querySelector("#total").textContent = `$${total.toFixed(2)}`;
+      }
+
+      document.addEventListener("DOMContentLoaded", function () {
+        // Tracking Page View
+        window.dataLayer.push({
+          event: "pageView",
+          pageTitle: document.title,
+          pageUrl: window.location.href,
+        });
+        // Delivery Method Selection
+        document.querySelectorAll(".delivery-method").forEach(function (input) {
+          input.addEventListener("change", function () {
+            window.dataLayer.push({
+              event: "deliveryMethodSelect",
+              deliveryMethod: input.value,
+            });
+          });
+        });
+        // Payment Method Selection
+        document.querySelectorAll(".payment-method").forEach(function (input) {
+          input.addEventListener("change", function () {
+            window.dataLayer.push({
+              event: "paymentMethodSelect",
+              paymentMethod: input.id,
+            });
+          });
+        });
+
+        //Update Order detail after change quantity
+        document
+          .querySelector("#quantity")
+          .addEventListener("change", updateOrderSummary);
+        updateOrderSummary();
+
+        document
+          .querySelector(".confirm_order")
+          .addEventListener("click", function (e) {
+            // e.preventDefault();
+
+            // Thu thập dữ liệu từ form và order summary
+            const orderData = {
+              productName: document.querySelector("#product_name").textContent,
+              productPrice:
+                document.querySelector("#product_price").textContent,
+              quantity: document.querySelector("#quantity").value,
+              subtotal: document.querySelector("#subtotal").textContent,
+              shipping: document.querySelector("#shipping").textContent,
+              taxes: document.querySelector("#taxes").textContent,
+              total: document.querySelector("#total").textContent,
+              color: document.querySelector(".color").textContent,
+              size: document.querySelector(".size").textContent,
+              email: document.querySelector("#email-address").value,
+              firstName: document.querySelector("#first-name").value,
+              lastName: document.querySelector("#last-name").value,
+              address: document.querySelector("#address").value,
+              city: document.querySelector("#city").value,
+              country: document.querySelector("#country").value,
+              region: document.querySelector("#region").value,
+              postalCode: document.querySelector("#postal-code").value,
+              phone: document.querySelector("#phone").value,
+              deliveryMethod:
+                document.querySelector('input[name="delivery-method"]:checked')
+                  ?.value || "Standard",
+              paymentMethod:
+                document.querySelector('input[name="payment-type"]:checked')
+                  ?.id || "credit-card",
+            };
+
+            // Lưu vào SessionStorage
+            sessionStorage.setItem("orderData", JSON.stringify(orderData));
+
+            // Đẩy sự kiện begin_checkout vào dataLayer 
+            window.dataLayer.push({
+              event: "begin_checkout",
+              ecommerce: {
+                currency: "USD",
+                value: Number(orderData.total.replace("$", "")), // Chuyển sang số để GA4 nhận diện
+                coupon: "SUMMER_FUN",
+                items: [
+                  {
+                    item_name: orderData.productName,
+                    price: Number(orderData.productPrice.replace("$", "")),
+                    quantity: Number(orderData.quantity),
+                    subtotal: orderData.subtotal, // Giữ nguyên định dạng chuỗi nếu cần
+                    shipping: orderData.shipping,
+                    taxes: orderData.taxes,
+                    item_variant: `${orderData.color} - ${orderData.size}`, // Kết hợp color và size thành variant
+                    item_id: "SKU_12345",
+                    affiliation: "Google Merchandise Store",
+                    coupon: "SUMMER_FUN",
+                    discount: 2.22,
+                    index: 0,
+                    item_brand: "Google",
+                    item_category: "Apparel",
+                    item_category2: "Adult",
+                    item_category3: "Shirts",
+                    item_category4: "Crew",
+                    item_category5: "Short sleeve",
+                    item_list_id: "related_products",
+                    item_list_name: "Related Products",
+                    location_id: "ChIJIQBpAG2ahYAR_6128GcTUEo"
+                  },
+                ],
+              },
+            });
+          });
+      });
+    </script>
   </body>
 </html>
