@@ -149,12 +149,7 @@
         // Lấy dữ liệu từ SessionStorage
         const orderData = JSON.parse(sessionStorage.getItem("orderData")) || {};
 
-        // Đẩy Page View
-        window.dataLayer.push({
-          event: "pageView",
-          pageTitle: document.title,
-          pageUrl: window.location.href,
-        });
+       
 
         // Đẩy sự kiện purchase 
         if (orderData) {

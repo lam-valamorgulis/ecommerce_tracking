@@ -640,12 +640,7 @@
       }
 
       document.addEventListener("DOMContentLoaded", function () {
-        // Tracking Page View
-        window.dataLayer.push({
-          event: "pageView",
-          pageTitle: document.title,
-          pageUrl: window.location.href,
-        });
+      
         // Delivery Method Selection
         document.querySelectorAll(".delivery-method").forEach(function (input) {
           input.addEventListener("change", function () {
