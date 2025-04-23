@@ -144,109 +144,38 @@
     </div>
     <script>
       window.dataLayer = window.dataLayer || [];
-
       document.addEventListener("DOMContentLoaded", function () {
-        // Lấy dữ liệu từ SessionStorage
-        const orderData = JSON.parse(sessionStorage.getItem("orderData")) || {};
-
-       
-
-        // Đẩy sự kiện purchase 
-        if (orderData) {
-          window.dataLayer.push({
-            event: "purchase",
-            ecommerce: {
-              transaction_id: "ORDER_" + Math.floor(Math.random() * 1000000), // Tạo ID ngẫu nhiên
-              currency: "USD",
-              value: Number(orderData.total.replace("$", "")),
-              items: [
-                {
-                  item_name: orderData.productName,
-                  price: Number(orderData.productPrice.replace("$", "")),
-                  quantity: Number(orderData.quantity),
-                  item_variant: `${orderData.color} - ${orderData.size}`,
-                  shipping: Number(orderData.shipping.replace("$", "")),
-                  tax: Number(orderData.taxes.replace("$", "")),
-                  subtotal: Number(orderData.subtotal.replace("$", "")),
-                  shipping_name: `${orderData.firstName} ${orderData.lastName}`,
-                  shipping_city: `${orderData.city}, ${orderData.region} ${orderData.postalCode}`,
-                  payment_method: orderData.paymentMethod.replace("-", " ").replace(/\b\w/g, (c) => c.toUpperCase()),
-                  shipping_method: orderData.deliveryMethod,     
-                  item_brand: "Google",
-                  item_category: "Apparel",
-                  item_category2: "Adult",
-                  item_category3: "Shirts",
-                  item_category4: "Crew",
-                  item_category5: "Short sleeve",
-                  item_list_id: "related_products",
-                  item_list_name: "Related Products",
-                  item_variant: "green"               
-                },
-                {
-                  item_id: "SKU_12346",
-                  item_name: "Google Grey Women's Tee",
-                  affiliation: "Google Merchandise Store",
-                  coupon: "SUMMER_FUN",
-                  discount: 3.33,
-                  index: 1,
-                  item_brand: "Google",
-                  item_category: "Apparel",
-                  item_category2: "Adult",
-                  item_category3: "Shirts",
-                  item_category4: "Crew",
-                  item_category5: "Short sleeve",
-                  item_list_id: "related_products",
-                  item_list_name: "Related Products",
-                  item_variant: "gray",
-                  location_id: "ChIJIQBpAG2ahYAR_6128GcTUEo",
-                  price: 21.01,
-                  promotion_id: "P_12345",
-                  promotion_name: "Summer Sale",
-                  quantity: 2
-                }
-              ],
-            },
-          });
-
-          // Cập nhật giao diện
-          document.querySelector(".product-name").textContent =
-            orderData.productName;
-          document.querySelector(".product-quantity").textContent =
-            orderData.quantity;
-          document.querySelector(".product-price").textContent =
-            orderData.productPrice;
-          document.querySelector(
-            ".shipping-name"
-          ).textContent = `${orderData.firstName} ${orderData.lastName}`;
-          document.querySelector(".shipping-address").textContent =
-            orderData.address;
-          document.querySelector(
-            ".shipping-city"
-          ).textContent = `${orderData.city}, ${orderData.region} ${orderData.postalCode}`;
-          document.querySelector(".shipping-country").textContent =
-            orderData.country;
-          document.querySelector(
-            ".billing-name"
-          ).textContent = `${orderData.firstName} ${orderData.lastName}`;
-          document.querySelector(".billing-address").textContent =
-            orderData.address;
-          document.querySelector(
-            ".billing-city"
-          ).textContent = `${orderData.city}, ${orderData.region} ${orderData.postalCode}`;
-          document.querySelector(".billing-country").textContent =
-            orderData.country;
-          document.querySelector(".payment-method").textContent =
-            orderData.paymentMethod
-              .replace("-", " ")
-              .replace(/\b\w/g, (c) => c.toUpperCase());
-          document.querySelector(".shipping-method").textContent =
-            orderData.deliveryMethod;
-          document.querySelector(".subtotal").textContent = orderData.subtotal;
-          document.querySelector(".shipping-cost").textContent =
-            orderData.shipping;
-          document.querySelector(".taxes").textContent = orderData.taxes;
-          document.querySelector(".total").textContent = orderData.total;
-        }
+        // View item event
+        dataLayer.push({ ecommerce: null });
+        dataLayer.push({
+          event: "purchase",
+          ecommerce: {
+            currency: "USD",
+            value: 90.03,
+            items: [
+              {
+                item_id: "SKU_12345",
+                item_name: "Basic Tee",
+                affiliation: "Google Merchandise Store",
+                coupon: "SUMMER_FUN",
+                discount: 2.22,
+                index: 0,
+                item_brand: "Google",
+                item_category: "Apparel",
+                item_category2: "Adult",
+                item_category3: "Shirts",
+                item_category4: "Crew",
+                item_category5: "Short sleeve",
+                item_list_id: "related_products",
+                item_list_name: "Related Products",
+                item_variant: "green",
+                location_id: "ChIJIQBpAG2ahYAR_6128GcTUEo",
+                price: 30.03,
+                quantity: 3,
+              },
+            ],
+          },
+        });
       });
     </script>
   </body>

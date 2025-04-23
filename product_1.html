@@ -366,14 +366,17 @@
               items: [
                 {
                   item_id: "SKU_12345",
-                  item_name:
-                    document.querySelector("#product_name").textContent,
-                  item_rate:
-                    document.querySelector("#product_rate").textContent,
+                  item_name: document
+                    .querySelector("#product_name")
+                    .textContent.trim(),
+                  item_rate: document
+                    .querySelector("#product_rate")
+                    .textContent.trim(),
                   price: parseFloat(
                     document
                       .querySelector("#product_price")
                       .textContent.replace("$", "")
+                      .trim()
                   ),
                   quantity: 1,
                 },
