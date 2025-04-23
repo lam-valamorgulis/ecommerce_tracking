@@ -315,113 +315,113 @@
     </div>
 
     <script>
-      // Khởi tạo dataLayer
       window.dataLayer = window.dataLayer || [];
       document.addEventListener("DOMContentLoaded", function () {
-        dataLayer.push({ ecommerce: null }); // Clear the previous ecommerce object.
+        // View item event
+        dataLayer.push({ ecommerce: null });
         dataLayer.push({
           event: "view_item",
           ecommerce: {
             currency: "USD",
             value: 30.03,
             items: [
-            {
-              item_id: "SKU_12345",
-              item_name: document.querySelector('.product_name').textContent,
-              affiliation: "Google Merchandise Store",
-              coupon: "SUMMER_FUN",
-              discount: 2.22,
-              index: 0,
-              item_brand: "Google",
-              item_category: "Apparel",
-              item_category2: "Adult",
-              item_category3: "Shirts",
-              item_category4: "Crew",
-              item_category5: "Short sleeve",
-              item_list_id: "related_products",
-              item_list_name: "Related Products",
-              item_variant: "green",
-              location_id: "ChIJIQBpAG2ahYAR_6128GcTUEo",
-              price: document.querySelector('.product_price').textContent,
-              quantity: 3
-            }
-            ]
-          }
+              {
+                item_id: "SKU_12345",
+                item_name: document.querySelector("#product_name").textContent,
+                affiliation: "Google Merchandise Store",
+                coupon: "SUMMER_FUN",
+                discount: 2.22,
+                index: 0,
+                item_brand: "Google",
+                item_category: "Apparel",
+                item_category2: "Adult",
+                item_category3: "Shirts",
+                item_category4: "Crew",
+                item_category5: "Short sleeve",
+                item_list_id: "related_products",
+                item_list_name: "Related Products",
+                item_variant: "green",
+                location_id: "ChIJIQBpAG2ahYAR_6128GcTUEo",
+                price: document
+                  .querySelector("#product_price")
+                  .textContent.replace("$", ""),
+                quantity: 3,
+              },
+            ],
+          },
         });
-        // Tracking nút Add to Cart
-        document.querySelector("#btn").addEventListener("click", function (e) {
-           //e.preventDefault();
-           //console.log("Add to cart button clicked!");
-          window.dataLayer.push({ ecommerce: null });
-          window.dataLayer.push({            
-            event: 'add_to_cart',
+
+        // Add to cart event
+        document.querySelector("#btn").addEventListener("click", function () {
+          dataLayer.push({ ecommerce: null });
+          dataLayer.push({
+            event: "add_to_cart",
             ecommerce: {
               currency: "USD",
-              value: document.querySelector("#product_price").textContent.replace("$", ""),
+              value: parseFloat(
+                document
+                  .querySelector("#product_price")
+                  .textContent.replace("$", "")
+              ),
               items: [
                 {
-                  item_rate: document.querySelector("#product_rate").textContent,
-                  item_name: document.querySelector("#product_name").textContent,
-                  price: document.querySelector("#product_price").textContent.replace("$", ""),
                   item_id: "SKU_12345",
-                  item_name: "Stan and Friends Tee",
-                  affiliation: "Google Merchandise Store",
-                  coupon: "SUMMER_FUN",
-                  discount: 2.22,
-                  index: 0,
-                  item_brand: "Google",
-                  item_category: "Apparel",
-                  item_category2: "Adult",
-                  item_category3: "Shirts",
-                  item_category4: "Crew",
-                  item_category5: "Short sleeve",
-                  item_list_id: "related_products",
-                  item_list_name: "Related Products",
-                  item_variant: "green",
-                  location_id: "ChIJIQBpAG2ahYAR_6128GcTUEo",
+                  item_name:
+                    document.querySelector("#product_name").textContent,
+                  item_rate:
+                    document.querySelector("#product_rate").textContent,
+                  price: parseFloat(
+                    document
+                      .querySelector("#product_price")
+                      .textContent.replace("$", "")
+                  ),
+                  quantity: 1,
                 },
               ],
             },
-          }); 
+          });
         });
-        // Tracking nút Delivery
+
+        // Color selection event
+        document.querySelectorAll(".color").forEach(function (input) {
+          input.addEventListener("change", function () {
+            dataLayer.push({
+              event: "color_select",
+              selectedColor: this.value,
+            });
+          });
+        });
+
+        // Size selection event
+        document.querySelectorAll(".size").forEach(function (label) {
+          label.addEventListener("click", function () {
+            if (!this.classList.contains("cursor-not-allowed")) {
+              dataLayer.push({
+                event: "size_select",
+                selectedSize: this.textContent.trim(),
+              });
+            }
+          });
+        });
+
+        // Policy button events
         document
           .getElementById("delivery")
           .addEventListener("click", function () {
-            window.dataLayer.push({
-              event: "delivery_Click",
-              buttonAction: "international-delivery",
+            dataLayer.push({
+              event: "delivery_click",
+              buttonAction: this.dataset.action,
             });
           });
 
-        // Tracking nút Loyalty
         document
           .getElementById("loyalty")
           .addEventListener("click", function () {
-            window.dataLayer.push({
-              event: "loyalty_Click",
-              buttonAction: "loyalty-rewards",
+            dataLayer.push({
+              event: "loyalty_click",
+              buttonAction: this.dataset.action,
             });
           });
-        //tracking color
-        document.querySelectorAll(".color").forEach(function (input) {
-          input.addEventListener("change", function () {
-            console.log("Selected color:", input.value); // Kiểm tra trên console
-            window.dataLayer.push({
-              event: "colorSelect",
-              selectedColor: input.value,
-            });
-          });
-        });
-        // Size selection
-        document.querySelectorAll(".size").forEach(function (label) {
-          label.addEventListener("click", function () {
-            window.dataLayer.push({
-              event: "sizeSelect",
-              selectedSize: label.textContent.trim(),
-            });
-          });
-        });
       });
     </script>
   </body>
